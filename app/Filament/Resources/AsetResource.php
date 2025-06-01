@@ -200,7 +200,7 @@ class AsetResource extends Resource
                                 ->schema([
                                     Components\Group::make([
                                         TextEntry::make('kode_aset')->label('Kode Aset'),
-                                        TextEntry::make('nama_aset')->label('Nama Aset'),
+                                        TextEntry::make('nama')->label('Nama Aset'),
                                         TextEntry::make('tanggal_perolehan')
                                             ->label('Tanggal Perolehan')
                                             ->badge()
