@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    volumes:
+      - .:/var/www
+    environment:
+      APP_NAME: "inventory-system"
+      APP_ENV: "local"
+      APP_KEY: "base64:alDdv9MqZauq9wAWN5APuePi78KRhx8bfcKwvXiN0IA="
+      APP_DEBUG: "true"
+      APP_URL: "http://192.168.0.2:8000"
+
+      DB_CONNECTION: mysql
+      DB_HOST: aufn8.h.filess.io
+      DB_PORT: 61000
+      DB_DATABASE: inventorysystem_sameburst
+      DB_USERNAME: inventorysystem_sameburst
+      DB_PASSWORD: "3061407a522b4f158a3504582abb794ce227d337"
+
+      SESSION_DRIVER: database
+      SESSION_LIFETIME: 120
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+
+      FILESYSTEM_DISK: local
+
+      MAIL_MAILER: log
+      MAIL_FROM_ADDRESS: "hello@example.com"
+      MAIL_FROM_NAME: "Laravel"
+    ports:
+      - "9000:9000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    depends_on:
+      - app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  default:
+    driver: bridge
